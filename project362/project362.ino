@@ -57,7 +57,6 @@ void loop() {
 
 /*
 int tester = random(0,8);
-
 matrix.fillScreen(LOW);
 test(6);
 matrix.write();
@@ -140,44 +139,52 @@ void drawRemainder(int row, int input)
 
 
 
-void test(int inten, int freq)
-{
-  matrix.drawLine(freq, 0, freq, inten, HIGH);
-}
 
-void beatDropIntensity(int inten, int freq)
+void test2(int input)
 {
-  int ranY = random(0,2);
-  for(int x = 0; x < 8; x++)
+  //Low Volume
+  if(input == 0)
   {
-    if(freq > 90)
-    {
-      int newInten = map(inten, 0, 100, 0, 8);
-      matrix.drawLine(x, 0, x, newInten, HIGH);
-      x++;
-    }
-    
-    matrix.drawLine(x, 0, x, ranY, HIGH);
-    
+    drawBar2(0, input);    
+  }
+  if(input == 1)
+  {
+    drawBar2(1, input);
+  }
+  if(input == 2)
+  {
+    drawBar2(2, input);
+  }
+  //Medium Volume
+  if(input == 3)
+  {
+    drawBar2(3, input);
+  }
+  if(input == 4)
+  {
+    drawBar2(4, input);
+  }
+  if(input == 5)
+  {
+    drawBar2(5, input);
+  }
+  if(input == 6)
+  {
+    drawBar2(6, input);
+  }
+  //High Volume
+  if(input == 7)
+  {
+    drawBar2(7, input);
   }
 }
 
-
-//Example
-void beatDropBar()
+void drawBar2(int row, int input)
 {
-  
-  int ranX = random(0,8);
-  matrix.fillScreen(LOW);
-  for(int x = 0; x < 8; x++)
-  { 
-    int ranY = random(0,8);
-    matrix.drawLine(x,0, x, ranY, HIGH);
-    
-    
+  for(int i = 0; i < 8; i++)
+  {
+    matrix.fillScreen(LOW);
+    matrix.drawLine(0,0 , i, input, HIGH);
+    matrix.write();
   }
-  matrix.write();
-  delay(100);
-
-
 }
