@@ -30,7 +30,7 @@ void loop() {
 
     //Test is assuming byteRead is already mapped between 0-7
     matrix.fillScreen(LOW);
-    test(byteRead);
+    test2(byteRead);
     matrix.write();
     
   }
