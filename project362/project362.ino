@@ -29,7 +29,7 @@ void loop() {
 
     //Test is assuming byteRead is already mapped between 0-7
     matrix.fillScreen(LOW);
-    test(byteRead);
+    test3(byteRead);
     matrix.write();
     
   }
@@ -38,25 +38,11 @@ void loop() {
    brightness = map(analogRead(1), 0, 1023, 0, 3);
    matrix.setIntensity(brightness);
 
-  //    HIGH = On. LOW = Off.
-  //                       (firstPoint)   (SecPoint)    (HIGH OR LOW)
-  //draw line paramater (xAxis, yAxis, x2Axis, y2Axis, Color)
-//
-//  int randFreq = random(0,8);
-//  int randInten = random(0,8);
-//  test(randInten, randFreq);
-//  drawRest(randFreq, randInten);
-//  matrix.write();
-//  delay(100);
-//  matrix.fillScreen(LOW);
-//
-//
-//  beatDropBar();
 
 /*
 int tester = random(0,8);
 matrix.fillScreen(LOW);
-test(6);
+test3(5);
 matrix.write();
 delay(40);
 */
@@ -109,26 +95,34 @@ void test(int input)
   }
 }
 
+//Draws ONE bar onto the led matrix (Main Bar)
 void drawBar(int row, int input)
 {
   matrix.drawLine(row, 0, row, input, HIGH);
 }
 
+//Draws the remaining columns onto the led matrix
 void drawRemainder(int row, int input)
 {
-  int newY;
-  int counter = 1;
+  int newY;         //Y Axis
+  int counter = 1;  //Counter used to modify how high the bar is
+
+  //Loops through each possible rows (Moving to the right)
   for(int i = row+1; i < 8; i++)
   {
+    //New random y-axis depending on its x-axis location + counter
     newY = random(0,input-counter);
     matrix.drawLine(i, 0, i, newY, HIGH);
     counter+=1;
   }
 
+  //Resets counter
   counter = 1;
-  
+
+  //Loops through (Moving to the left)
   for(int i = row-1; i >= 0; i--)
   {
+    //Same as above
     int newY = random(0,input-counter);
     matrix.drawLine(i, 0, i, newY, HIGH);
     counter+=1;
@@ -185,4 +179,50 @@ void drawBar2(int row, int input)
     matrix.drawLine(0,0 , i-input, input, HIGH);
     matrix.write();
   }
+}
+
+
+void test3(int input)
+{
+  //Low Volume
+  if(input == 0)
+  {
+    drawRectBeat(0, input);    
+  }
+  if(input == 1)
+  {
+    drawRectBeat(1, input);
+  }
+  if(input == 2)
+  {
+    drawRectBeat(2, input);
+  }
+  //Medium Volume
+  if(input == 3)
+  {
+    drawRectBeat(3, input);
+  }
+  if(input == 4)
+  {
+    drawRectBeat(4, input);
+  }
+  if(input == 5)
+  {
+    drawRectBeat(5, input);
+  }
+  if(input == 6)
+  {
+    drawRectBeat(6, input);
+  }
+  //High Volume
+  if(input == 7)
+  {
+    drawRectBeat(7, input);
+  }
+}
+
+void drawRectBeat(int row, int input)
+{
+  int newRow = 8-row;
+  matrix.drawRect(newRow, newRow, input, input, HIGH);
 }
