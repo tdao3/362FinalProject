@@ -14,13 +14,12 @@ void setup() {
   Serial.begin(9600);
   matrix.setIntensity(0);
   randomSeed(analogRead(0));
-
 }
 
 int wait = 50;
 int inc = -2;
 byte byteRead = 0;
-
+int testNum = 1;
 void loop() {
 
   if(Serial.available() > 0)
@@ -30,7 +29,7 @@ void loop() {
 
     //Test is assuming byteRead is already mapped between 0-7
     matrix.fillScreen(LOW);
-    test2(byteRead);
+    test(byteRead);
     matrix.write();
     
   }
@@ -38,7 +37,6 @@ void loop() {
    // dim display if dark, brighten if bright 
    brightness = map(analogRead(1), 0, 1023, 0, 3);
    matrix.setIntensity(brightness);
-
 
   //    HIGH = On. LOW = Off.
   //                       (firstPoint)   (SecPoint)    (HIGH OR LOW)
