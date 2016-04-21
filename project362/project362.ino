@@ -1,5 +1,5 @@
 #include <SPI.h>
-#include <Adafruit_GFX.h>
+//#include <Adafruit_GFX.h>
 #include <Max72xxPanel.h>
 
 int pinCS = 10; // Attach CS to this pin, DIN to MOSI and CLK to SCK (cf http://arduino.cc/en/Reference/SPI )
