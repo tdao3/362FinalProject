@@ -7,10 +7,16 @@ also led matrix control
 
 const int sampleWindow = 50; // Sample window width in mS (50 mS = 20Hz)
 unsigned int sample;
- 
+
+int motionPinIN = 13; // trigger
+int motionPinOUT = 12;// echo
+long duration;
+
 void setup() 
 {
    Serial.begin(9600);
+   pinMode(motionPinOUT, OUTPUT);
+   pinMode(motionPinIN, INPUT);
 }
 
 int val;
@@ -59,7 +65,21 @@ void loop()
 //   }
 //   Serial.println(peakToPeak);
 
-     val = map(peakToPeak, 0, 1023, 0, 8);
+     //Motion sensor
+     val = map(peakToPeak, 80, 400, 0, 8);
      Serial.print(val);
+     
+//     digitalWrite(motionPinIN, LOW);
+//     delayMicroseconds(5);
+//     digitalWrite(motionPinIN, HIGH);
+//     delayMicroseconds(10);
+//     digitalWrite(motionPinIN, LOW);
+//
+//     // Read the signal from the sensor: a HIGH pulse whose
+//     // duration is the time (in microseconds) from the sending
+//     // of the ping to the reception of its echo off of an object.
+//     duration = pulseIn(motionPinOUT, HIGH);
+//
+//     Serial.println(duration);
 }
 

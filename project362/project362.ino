@@ -6,6 +6,8 @@ int pinCS = 10; // Attach CS to this pin, DIN to MOSI and CLK to SCK (cf http://
 int numberOfHorizontalDisplays = 1;
 int numberOfVerticalDisplays = 1;
 
+int brightness = 0; // for photoresistor
+
 Max72xxPanel matrix = Max72xxPanel(pinCS, numberOfHorizontalDisplays, numberOfVerticalDisplays);
 
 void setup() {
@@ -32,6 +34,10 @@ void loop() {
     matrix.write();
     
   }
+
+   // dim display if dark, brighten if bright 
+   brightness = map(analogRead(1), 0, 1023, 0, 3);
+   matrix.setIntensity(brightness);
 
 
   //    HIGH = On. LOW = Off.
