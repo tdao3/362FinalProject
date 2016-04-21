@@ -12,7 +12,8 @@ void setup()
 {
    Serial.begin(9600);
 }
- 
+
+int val;
 void loop()  
 {
    unsigned long startMillis= millis();  // Start of sample window
@@ -39,25 +40,26 @@ void loop()
    }
    peakToPeak = signalMax - signalMin;  // max - min = peak-peak amplitude
    double volts = (peakToPeak * 3.3) / 1024;  // convert to peakToPeak
-
+    
 //   if(peakToPeak > 0 && peakToPeak < 130)
 //   {
-//    Serial.println("*");
+//    Serial.print(1);
 //   }
 //   else if (peakToPeak > 140  && peakToPeak < 180)
 //   {
-//    Serial.println("**");
+//    Serial.print(2);
 //   }
 //   else if (peakToPeak > 179 && peakToPeak < 200)
 //   {
-//    Serial.println("***");
+//    Serial.print(3);
 //   }
 //   else if (peakToPeak > 199)
 //   {
-//    Serial.println("****");
+//    Serial.print(4);
 //   }
-   //Serial.println(peakToPeak);
+//   Serial.println(peakToPeak);
 
-   Serial.print(peakToPeak);
+     val = map(peakToPeak, 0, 1023, 0, 8);
+     Serial.print(val);
 }
 

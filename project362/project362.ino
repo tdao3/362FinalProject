@@ -1,5 +1,5 @@
 #include <SPI.h>
-//#include <Adafruit_GFX.h>
+#include <Adafruit_GFX.h>
 #include <Max72xxPanel.h>
 
 int pinCS = 10; // Attach CS to this pin, DIN to MOSI and CLK to SCK (cf http://arduino.cc/en/Reference/SPI )
@@ -9,6 +9,7 @@ int numberOfVerticalDisplays = 1;
 Max72xxPanel matrix = Max72xxPanel(pinCS, numberOfHorizontalDisplays, numberOfVerticalDisplays);
 
 void setup() {
+  Serial.begin(9600);
   matrix.setIntensity(0);
   randomSeed(analogRead(0));
 
@@ -16,23 +17,29 @@ void setup() {
 
 int wait = 50;
 int inc = -2;
+byte byteRead = 0;
 
 void loop() {
 
+  if(Serial.available() > 0)
+  {
+    byteRead = Serial.read() - '0';
+    Serial.println(byteRead);
+  }
   //    HIGH = On. LOW = Off.
   //                       (firstPoint)   (SecPoint)    (HIGH OR LOW)
   //draw line paramater (xAxis, yAxis, x2Axis, y2Axis, Color)
-/*
-  int randFreq = random(0,8);
-  int randInten = random(0,8);
-  test(randInten, randFreq);
-  drawRest(randFreq, randInten);
-  matrix.write();
-  delay(100);
-  matrix.fillScreen(LOW);
-*/
-
-  beatDropBar();
+//
+//  int randFreq = random(0,8);
+//  int randInten = random(0,8);
+//  test(randInten, randFreq);
+//  drawRest(randFreq, randInten);
+//  matrix.write();
+//  delay(100);
+//  matrix.fillScreen(LOW);
+//
+//
+//  beatDropBar();
 }
 
 
