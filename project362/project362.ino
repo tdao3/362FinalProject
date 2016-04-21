@@ -184,7 +184,7 @@ void drawBar2(int row, int input)
   for(int i = 0; i < 8; i++)
   {
     matrix.fillScreen(LOW);
-    matrix.drawLine(0,0 , i, input, HIGH);
+    matrix.drawLine(0,0 , i-input, input, HIGH);
     matrix.write();
   }
 }
