@@ -25,7 +25,15 @@ void loop() {
   {
     byteRead = Serial.read() - '0';
     Serial.println(byteRead);
+
+    //Test is assuming byteRead is already mapped between 0-7
+    matrix.fillScreen(LOW);
+    test(byteRead);
+    matrix.write();
+    
   }
+
+
   //    HIGH = On. LOW = Off.
   //                       (firstPoint)   (SecPoint)    (HIGH OR LOW)
   //draw line paramater (xAxis, yAxis, x2Axis, y2Axis, Color)
@@ -40,25 +48,91 @@ void loop() {
 //
 //
 //  beatDropBar();
+
+/*
+int tester = random(0,8);
+
+matrix.fillScreen(LOW);
+test(6);
+matrix.write();
+delay(40);
+*/
 }
 
-
-void drawRest(int xPos, int yPos)
+void test(int input)
 {
-  int newY = yPos - 2;
-  for(int i = xPos+1; i < 8; i++)
+  //Low Volume
+  if(input == 0)
   {
-    matrix.drawLine(i, 0, i, newY, HIGH);
-    newY -= 2;
+    drawBar(0, input);
+    drawRemainder(0, input);
   }
-
-  newY = yPos - 2;
-  for(int i = xPos-1; i > 0; i--)
+  if(input == 1)
   {
-    matrix.drawLine(i,0,i, newY, HIGH);
-    newY -=2;
+    drawBar(1, input);
+    drawRemainder(1, input);
+  }
+  if(input == 2)
+  {
+    drawBar(2, input);
+    drawRemainder(2, input);
+  }
+  //Medium Volume
+  if(input == 3)
+  {
+    drawBar(3, input);
+    drawRemainder(3, input);
+  }
+  if(input == 4)
+  {
+    drawBar(4, input);
+    drawRemainder(4, input);
+  }
+  if(input == 5)
+  {
+    drawBar(5, input);
+    drawRemainder(5, input);
+  }
+  if(input == 6)
+  {
+    drawBar(6, input);
+    drawRemainder(6, input);
+  }
+  //High Volume
+  if(input == 7)
+  {
+    drawBar(7, input);
+    drawRemainder(7, input);
   }
 }
+
+void drawBar(int row, int input)
+{
+  matrix.drawLine(row, 0, row, input, HIGH);
+}
+
+void drawRemainder(int row, int input)
+{
+  int newY;
+  int counter = 1;
+  for(int i = row+1; i < 8; i++)
+  {
+    newY = random(0,input-counter);
+    matrix.drawLine(i, 0, i, newY, HIGH);
+    counter+=1;
+  }
+
+  counter = 1;
+  
+  for(int i = row-1; i >= 0; i--)
+  {
+    int newY = random(0,input-counter);
+    matrix.drawLine(i, 0, i, newY, HIGH);
+    counter+=1;
+  }
+}
+
+
 
 void test(int inten, int freq)
 {
