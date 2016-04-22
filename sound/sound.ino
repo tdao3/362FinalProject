@@ -39,8 +39,7 @@ void loop()
       }
    }
    peakToPeak = signalMax - signalMin;  // max - min = peak-peak amplitude
-   double volts = (peakToPeak * 3.3) / 1024;  // convert to peakToPeak
-
+   
      val = map(peakToPeak, 50, 400, 0, 8);
      Serial.print(val);
 }

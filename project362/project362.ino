@@ -37,15 +37,6 @@ void loop() {
    // dim display if dark, brighten if bright 
    brightness = map(analogRead(1), 0, 1023, 0, 3);
    matrix.setIntensity(brightness);
-
-
-/*
-int tester = random(0,8);
-matrix.fillScreen(LOW);
-test3(5);
-matrix.write();
-delay(40);
-*/
 }
 
 void test(int input)
@@ -128,9 +119,6 @@ void drawRemainder(int row, int input)
     counter+=1;
   }
 }
-
-
-
 
 void test2(int input)
 {
