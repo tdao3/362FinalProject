@@ -6,6 +6,9 @@ int pinCS = 10; // Attach CS to this pin, DIN to MOSI and CLK to SCK (cf http://
 int numberOfHorizontalDisplays = 1;
 int numberOfVerticalDisplays = 1;
 
+int buttonPin = 4;
+int testNum = 1;
+
 int brightness = 0; // for photoresistor
 
 Max72xxPanel matrix = Max72xxPanel(pinCS, numberOfHorizontalDisplays, numberOfVerticalDisplays);
@@ -14,12 +17,12 @@ void setup() {
   Serial.begin(9600);
   matrix.setIntensity(0);
   randomSeed(analogRead(0));
+  pinMode(buttonPin, INPUT_PULLUP);    // no need for resistors
 }
 
 int wait = 50;
 int inc = -2;
 byte byteRead = 0;
-int testNum = 1;
 void loop() {
 
   if(Serial.available() > 0)
@@ -29,18 +32,63 @@ void loop() {
 
     //Test is assuming byteRead is already mapped between 0-7
     matrix.fillScreen(LOW);
-    test3(byteRead);
+    //test3(byteRead);
+    pick_pattern(byteRead);
     matrix.write();
     
   }
 
-   // dim display if dark, brighten if bright 
-   brightness = map(analogRead(1), 0, 1023, 0, 3);
-   matrix.setIntensity(brightness);
+  //button implementation
+  if(digitalRead(buttonPin) == 0)
+  {
+   switch_pattern(); 
+  }
+  
+  // dim display if dark, brighten if bright 
+  brightness = map(analogRead(1), 0, 1023, 0, 3);
+  matrix.setIntensity(brightness);
 }
 
+void pick_pattern(int input)
+{
+  switch (testNum)
+  {
+    case 1:
+      test(input);
+      break;
+    case 2:
+      test2(input);
+      break;
+    case 3:
+      test3(input);
+      break;
+    default:
+      test(input);
+      break;
+  }
+}
+
+void switch_pattern()
+{
+  switch (testNum)
+  {
+    case 1:
+      testNum = 2;
+      break;
+    case 2:
+      testNum = 3;
+      break;
+    case 3:
+      testNum = 1;
+      break;
+    default:
+      testNum = 1;
+  }
+}
 void test(int input)
 {
+  testNum = 1;
+  
   //Low Volume
   if(input == 0)
   {
@@ -122,6 +170,8 @@ void drawRemainder(int row, int input)
 
 void test2(int input)
 {
+  testNum = 2;
+  
   //Low Volume
   if(input == 0)
   {
@@ -172,6 +222,8 @@ void drawBar2(int row, int input)
 
 void test3(int input)
 {
+  testNum = 3;
+  
   //Low Volume
   if(input == 0)
   {
